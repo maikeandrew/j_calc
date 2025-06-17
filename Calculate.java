@@ -1,78 +1,73 @@
+import java.lang.foreign.SymbolLookup;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.Locale;
+
+
+
 public class Calculate {
 
-    public static void main(String[] args){
+    static double sum(double x, double y){
+        return x +y;
+    }
 
-        int x = Integer.parseInt(args[1]);
+    static double minus(double x, double y){
+        return  x - y;
+    }
 
-        int y = Integer.parseInt(args[2]);
+    static double multiply(double x, double y){
+        return x * y;
+    }
 
-
-        if(args[0].equals("somar")){
-
-            sum(x, y);
-
+    static double divide(double x, double y){
+        if(y == 0){
+            throw new ArithmeticException("Erro: Divisao por zero.");
         }
-
-        else if(args[0].equals("subitrair")) {
-
-            minus(x, y);
-
-        }
-
-        else if(args[0].equals("multiplicar")){
-
-            multiply(x, y);
-
-        }
-
-        else if(args[0].equals("dividir")) {
-
-            divide(x, y);
-
-        }
-
-        else{
-
-            System.out.println("Nenhuma instrucao foi definida!");
-
-        }
-
+        return x / y;
     }
 
 
+    public static void main(String[] args) {
 
-// Functions
+        Scanner scanner = new Scanner(System.in);
 
+        try{
+            System.out.print("Informe o primeiro valor: ");
+            double x = scanner.nextDouble();
 
+            System.out.print("Informe a operacao (+, -, *, /): ");
+            String op = scanner.next();
 
-    static void sum(int x, int y){
+            System.out.print("Informe o segundo valor: ");
+            double y = scanner.nextDouble();
 
-        System.out.println(x + y);
+            double resultado;
 
+            switch (op){
+                case "+":
+                    resultado = sum(x, y);
+                    break;
+                case "-":
+                    resultado = minus(x,y);
+                    break;
+                case "*":
+                    resultado = multiply(x, y);
+                    break;
+                case "/":
+                    resultado = divide(x, y);
+                    break;
+                default:
+                    System.out.println("Operacoes invalida. Use uma das seguintes: +, -, *, /");
+                    return;
+            }
+
+            System.out.println("Resultado: " + resultado);
+        } catch (IllegalArgumentException e){
+            System.out.println("Erro: Os valores informados devem ser numeros.");
+        } catch (ArithmeticException e){
+            System.out.println(e.getMessage());
+        } finally {
+            scanner.close();
+        }
     }
-
-
-
-    static void minus(int x, int y){
-
-        System.out.println(x - y);
-
-    }
-
-
-
-    static void multiply(int x, int y){
-
-        System.out.println(x * y);
-
-    }
-
-
-
-    static void divide(int x, int y){
-
-        System.out.println(x / y);
-
-    }
-
 }
