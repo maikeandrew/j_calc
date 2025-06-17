@@ -7,6 +7,7 @@ import java.util.Locale;
 
 public class Calculate {
 
+    //Functions
     static double sum(double x, double y){
         return x +y;
     }
